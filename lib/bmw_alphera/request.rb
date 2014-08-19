@@ -281,7 +281,7 @@ class BmwAlphera::Request
 
     xml_message = add_envelope(xml_message)
 
-    bmw_xml_uploads = self.bmw_alphera_uploads.new(:input_xml => xml_message)
+    # bmw_xml_uploads = self.bmw_alphera_uploads.new(:input_xml => xml_message)
 
     bmw_url = "https://proxy1uat.bmwfinance.com.au/BizTalk_External_Interface_Proxy/BizTalk_External_Interface_DFE_External_Interface_Orchestration_BMWDFE_AU.asmx"
     url = URI.parse(bmw_url)
@@ -295,9 +295,10 @@ class BmwAlphera::Request
       request.body = xml_message
       response = http.request(request)
     end
-    bmw_xml_uploads.output_xml = response.body
-    bmw_xml_uploads.save(false)
-    self.save(false)
+    # bmw_xml_uploads.output_xml = response.body
+    # bmw_xml_uploads.save(false)
+    # self.save(false)
+    response
   end
 
 end

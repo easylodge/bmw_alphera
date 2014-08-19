@@ -17,7 +17,9 @@ describe BmwAlphera::Request do
   describe '.send_data_bmw_alphera' do
     it "post the data" do
       request = BmwAlphera::Request.new
-      expect(request.send_data_bmw_alphera(@access_hash)).to eq({})
+      post = request.send_data_bmw_alphera(@access_hash)
+      p post
+      expect(post.code).to eq("200")
     end
   end 
 end
