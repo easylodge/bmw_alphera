@@ -1,5 +1,6 @@
 require "bmw_alphera/version"
+require 'bmw_alphera/request'
 
 module BmwAlphera
-  # Your code goes here...
+  
 end
