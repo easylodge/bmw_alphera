@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-16"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <CreateApplication xmlns="http://tempuri.org/">
+      <CREATEAPPLICATION_EXTERNAL xmlns="CreateApplication_Input.xsd">
+        <APPLICATIONSUMMARY>
+          <PROVIDER_APPLICATION_ID>119771</PROVIDER_APPLICATION_ID>
+          <DEALER_ID>66</DEALER_ID>
+          <DEALER_PASSWORD>bmw@123</DEALER_PASSWORD>
+          <ACTION>SAVE</ACTION>
+          <USER_ID>robsonbr</USER_ID>
+        </APPLICATIONSUMMARY>
+        <QUOTEDETAILS>
+          <BRANDCODE>PBBMW</BRANDCODE>
+          <STATUSCODE>ASNEW</STATUSCODE>
+          <VEHICLESOURCE>VSINT</VEHICLESOURCE>
+          <FEESANDCHARGESAMOUNT>500.00</FEESANDCHARGESAMOUNT>
+          <SOURCENAME>BMW GROUP FINANCIAL SERVICES</SOURCENAME>
+          <SUBTYPE xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></SUBTYPE>
+          <GSTINCLUDED>GSTIN</GSTINCLUDED>
+          <ASSOCIATEDSERVICESAMOUNT>0.00</ASSOCIATEDSERVICESAMOUNT>
+          <ASSETPRICE>59700.00</ASSETPRICE>
+          <INTERESTRATE>9.9500</INTERESTRATE>
+          <DISCOUNT>0.00</DISCOUNT>
+          <DEALERDELIVERY>0.00</DEALERDELIVERY>
+          <LOANTERM>48</LOANTERM>
+          <RVPERCENT>12</RVPERCENT>
+          <RVAMOUNT>0</RVAMOUNT>
+          <REGISTRATION>0.00</REGISTRATION>
+          <CTPINSURANCE>0.00</CTPINSURANCE>
+          <STATECODE>DSVIC</STATECODE>
+          <TRADEINAMOUNT>5000.00</TRADEINAMOUNT>
+          <LCTAPPLICABLECODE>LCTST</LCTAPPLICABLECODE>
+          <FREQUENCYTYPECODE>PFMON</FREQUENCYTYPECODE>
+          <CASHDEPOSITAMOUNT>0.00</CASHDEPOSITAMOUNT>
+          <PAYMENTINCODE>PTADV</PAYMENTINCODE>
+          <PAYMENTSTRUCTURETYPE>PSNRM</PAYMENTSTRUCTURETYPE>
+          <OTHERASSETFLAG>0</OTHERASSETFLAG>
+          <TRADEINPAYOUT>0.00</TRADEINPAYOUT>
+          <TOTALDEPOSIT>5000.00</TOTALDEPOSIT>
+          <MAKENAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></MAKENAME>
+          <SERIESNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></SERIESNAME>
+          <MODELNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></MODELNAME>
+          <CUSTOMERNAME>Peter Long</CUSTOMERNAME>
+          <MOBILENUMBER>0422125254</MOBILENUMBER>
+          <APPLICATIONTYPE>APFIN</APPLICATIONTYPE>
+          <EMAILADDRESS>peter.long@bmwfinance.com.au</EMAILADDRESS>
+          <CUSTOMERTYPE>TCIND</CUSTOMERTYPE>
+          <DIFFERREDPAYMENT xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></DIFFERREDPAYMENT>
+          <TAXAPPLYDATE>2012-03-02T10:57:16.2162284+11:00</TAXAPPLYDATE>
+          <RVEFFECTIVEDATE>2012-03-02T10:57:16.2318536+11:00</RVEFFECTIVEDATE>
+          <SUBPRODUCTID>39</SUBPRODUCTID>
+          <PRODUCTID>8</PRODUCTID>
+        </QUOTEDETAILS>
+
+        <CUSTOMERDETAILS>
+          <CO-APPLICANT>OPTYS</CO-APPLICANT>
+          <GUARANTORS xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></GUARANTORS>
+          <COAPPLICANT_NATURE>CNDCR</COAPPLICANT_NATURE>
+          <LOAN_PURPOSE>LPFST</LOAN_PURPOSE>
+          <CUSTOMER_DETAILS>
+            <PROSPECT_TYPE>TCIND</PROSPECT_TYPE>
+            <PROSPECT_RELATION>RTCST</PROSPECT_RELATION>
+            <TITLE>TIMRR</TITLE>
+            <GENDER>GRMAL</GENDER>
+            <D_O_BBIRTH>1984-05-07T00:00:00.0000000+10:00</D_O_BBIRTH>
+            <FIRST_NAME>Peter</FIRST_NAME>
+            <MIDDLE_NAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></MIDDLE_NAME>
+            <LAST_NAME>Long</LAST_NAME>
+            <MARITIAL_STATUS>MSMAR</MARITIAL_STATUS>
+            <N_O_DEPENDENTS xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></N_O_DEPENDENTS>
+            <AUSTRALIAN_RESIDENT>OPTYS</AUSTRALIAN_RESIDENT>
+            <LICENSE_NO>8521452145</LICENSE_NO>
+            <LICENSE_STATE>DSVIC</LICENSE_STATE>
+            <PHONE_AH>0393677752</PHONE_AH>
+            <PHONE_BH>0396325524</PHONE_BH>
+            <MOBILE_NO>0422125254</MOBILE_NO>
+            <FAX_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></FAX_NO>
+            <EMAIL_ID>peter.long@bmwfinance.com.au</EMAIL_ID>
+            <EMAIL_STATEMENT xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></EMAIL_STATEMENT>
+            <INDIVIDUALABN xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></INDIVIDUALABN>
+            <CURR_ADD_ADDRESS>783 Springvale Rd</CURR_ADD_ADDRESS>
+            <CURR_ADD_SUBURB>MULGRAVE</CURR_ADD_SUBURB>
+            <CURR_ADD_STATE>DSVIC</CURR_ADD_STATE>
+            <CURR_ADD_POSTAL_CODE>3170</CURR_ADD_POSTAL_CODE>
+            <CURR_ADD_BAR_CODE>1301011202012002112210330211222103013</CURR_ADD_BAR_CODE>
+            <CURR_ADD_BSP>027</CURR_ADD_BSP>
+            <CURR_ADD_DPID>52162483</CURR_ADD_DPID>
+            <CURR_ADD_STREET_NO>783</CURR_ADD_STREET_NO>
+            <CURR_ADD_STREET_NAME>SPRINGVALE</CURR_ADD_STREET_NAME>
+            <CURR_ADD_STREET_TYPE>RD</CURR_ADD_STREET_TYPE>
+            <CURR_ADD_SUB_PREMISE xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></CURR_ADD_SUB_PREMISE>
+            <CURR_ADD_DURATION_YRS>6</CURR_ADD_DURATION_YRS>
+            <CURR_ADD_DURATION_MNTH>2</CURR_ADD_DURATION_MNTH>
+            <PREV_ADD_DURATION_YRS xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></PREV_ADD_DURATION_YRS>
+            <PREV_ADD_DURATION_MNTH xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></PREV_ADD_DURATION_MNTH>
+            <REF_NAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></REF_NAME>
+            <REF_RELATIONSHIP xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></REF_RELATIONSHIP>
+            <REF_CONTACT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></REF_CONTACT_NO>
+            <EMP_STATUS>ESFRT</EMP_STATUS>
+            <GRP_STAFF>0</GRP_STAFF>
+            <CustomerABN xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></CustomerABN>
+            <PRESENT_EMPLOYER>bmw</PRESENT_EMPLOYER>
+            <PRESENT_EMP_CONT_NO>963144444</PRESENT_EMP_CONT_NO>
+            <PRESENT_EMP_CONT_PERSON xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></PRESENT_EMP_CONT_PERSON>
+            <PROFESSION>PROF1</PROFESSION>
+            <PRESENT_EMP_DURATION_YRS>5</PRESENT_EMP_DURATION_YRS>
+            <PRESENT_EMP_DURATION_MNTH>1</PRESENT_EMP_DURATION_MNTH>
+            <TOTAL_MONTHLY_INCOME>3000.00</TOTAL_MONTHLY_INCOME>
+            <PREV_EMPLOYER xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></PREV_EMPLOYER>
+            <PREV_EMP_DURATION_YRS xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></PREV_EMP_DURATION_YRS>
+            <PREV_EMP_DURATION_MNTH xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></PREV_EMP_DURATION_MNTH>
+            <PREV_EMP_CONT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></PREV_EMP_CONT_NO>
+            <CASH_ON_HAND>1200.00</CASH_ON_HAND>
+            <PUBLICLY_LISTED_COMPANY_SHARES>1200.00</PUBLICLY_LISTED_COMPANY_SHARES>
+            <OTHER_INVESTMENTS>0.00</OTHER_INVESTMENTS>
+            <SUPERANNUATION>0.00</SUPERANNUATION>
+            <LIFE_ASSURANCE>0.00</LIFE_ASSURANCE>
+            <ASSET_PRINCIPAL_PLACE_OF_RESIDENCE>0.00</ASSET_PRINCIPAL_PLACE_OF_RESIDENCE>
+            <ASSET_INVESTMENT_PROPERTIES>0.00</ASSET_INVESTMENT_PROPERTIES>
+            <MOTOR_VEHICLES>0.00</MOTOR_VEHICLES>
+            <PLANT_AND_EQUIPMENT>0.00</PLANT_AND_EQUIPMENT>
+            <FURNITURE_AND_FITTINGS_HOME>0.00</FURNITURE_AND_FITTINGS_HOME>
+            <FURNITURE_AND_FITTINGS_BUSINESS>0.00</FURNITURE_AND_FITTINGS_BUSINESS>
+            <OTHER_ASSETS_AMOUNT>0.00</OTHER_ASSETS_AMOUNT>
+            <TOTAL_ASSETS>2400.00</TOTAL_ASSETS>
+            <BANK_OVERDRAFT_SECURED>0.00</BANK_OVERDRAFT_SECURED>
+            <BANK_OVERDRAFT_UNSECURED>0.00</BANK_OVERDRAFT_UNSECURED>
+            <FINANCE_COMPANY_SECURED>0.00</FINANCE_COMPANY_SECURED>
+            <FINANCE_COMPANY_UNSECURED>0.00</FINANCE_COMPANY_UNSECURED>
+            <LIAB_PRINCIPAL_PLACE_OF_RESIDENCE>0.00</LIAB_PRINCIPAL_PLACE_OF_RESIDENCE>
+            <LIAB_INVESTMENT_PROPERTIES>0.00</LIAB_INVESTMENT_PROPERTIES>
+            <INCOME_TAX_DUE_AMOUNT>0.00</INCOME_TAX_DUE_AMOUNT>
+            <TRADE_CREDITORS>0.00</TRADE_CREDITORS>
+            <OTHER_LIABILITIES_AMOUNT>0.00</OTHER_LIABILITIES_AMOUNT>
+            <CREDIT_CARD_LIMIT>0.00</CREDIT_CARD_LIMIT>
+            <CREDIT_CARD_BALANCE>0.00</CREDIT_CARD_BALANCE>
+            <TOTAL_LIABILITIES>0.00</TOTAL_LIABILITIES>
+            <REGULAR_NET_SALARY>0.00</REGULAR_NET_SALARY>
+            <NET_OVERTIME_BONUSES>0.00</NET_OVERTIME_BONUSES>
+            <OTHER_INCOME_AMOUNT>0.00</OTHER_INCOME_AMOUNT>
+            <TOTAL_INCOME>0.00</TOTAL_INCOME>
+            <MORTGAGE_RENT_REPAYMENT>0.00</MORTGAGE_RENT_REPAYMENT>
+            <MEDICAL_INSURANCE>0.00</MEDICAL_INSURANCE>
+            <ADDITIONAL_LOAN_PAYMENTS>0.00</ADDITIONAL_LOAN_PAYMENTS>
+            <CREDIT_CARD_PAYMENTS>0.00</CREDIT_CARD_PAYMENTS>
+            <GENERAL_LIVING_EXPENSES>0.00</GENERAL_LIVING_EXPENSES>
+            <OTHER_EXPENDITURE_AMOUNT>0.00</OTHER_EXPENDITURE_AMOUNT>
+            <TOTAL_EXPENDITURE>0.00</TOTAL_EXPENDITURE>
+            <PROPERTY_STATUS>PSBUY</PROPERTY_STATUS>
+            <LANDLORD xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></LANDLORD>
+            <PROPERTY_CONT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></PROPERTY_CONT_NO>
+            <MONTHLY_PAYMENT>1000.00</MONTHLY_PAYMENT>
+            <ACCOUNTANCY_FIRM xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></ACCOUNTANCY_FIRM>
+            <ACCOUNTANCY_FIRM_CONT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></ACCOUNTANCY_FIRM_CONT_NO>
+            <ACCOUNTANCY_FIRM_CONT_PERSON xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></ACCOUNTANCY_FIRM_CONT_PERSON>
+            <REPAYMENT_METHOD>RMDDB</REPAYMENT_METHOD>
+            <BANK_NAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></BANK_NAME>
+            <ACCOUNT_NAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></ACCOUNT_NAME>
+            <ACCOUNT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></ACCOUNT_NO>
+            <BRANCH_CODE xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></BRANCH_CODE>
+            <FIN_REF1 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></FIN_REF1>
+            <FIN_REF1_ACCOUNT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></FIN_REF1_ACCOUNT_NO>
+            <FIN_REF1_CURR_ACC>false</FIN_REF1_CURR_ACC>
+            <FIN_REF2 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></FIN_REF2>
+            <FIN_REF2_ACCOUNT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></FIN_REF2_ACCOUNT_NO>
+            <FIN_REF2_CURR_ACC>false</FIN_REF2_CURR_ACC>
+            <ABN xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></ABN>
+            <TRUST_NAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></TRUST_NAME>
+            <CORP_PERSONAL_REF xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></CORP_PERSONAL_REF>
+            <CORP_PERSONAL_REF_RELATIONSHIPS xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></CORP_PERSONAL_REF_RELATIONSHIPS>
+            <CORP_PERSONAL_REF_CONT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></CORP_PERSONAL_REF_CONT_NO>
+            <CORP_TRADE_REF1 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></CORP_TRADE_REF1>
+            <CORP_TRADE_REF1_CONT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></CORP_TRADE_REF1_CONT_NO>
+            <CORP_TRADE_REF2 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></CORP_TRADE_REF2>
+            <CORP_TRADE_REF2_CONT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></CORP_TRADE_REF2_CONT_NO>
+          </CUSTOMER_DETAILS>
+          <TOTAL_MONTHLY_INCOME_AMOUNT>0.00</TOTAL_MONTHLY_INCOME_AMOUNT>
+        </CUSTOMERDETAILS>
+        
+        <VEHICLEDETAILS_INPUT>
+          <VEHICLEDESCRIPTION>E90 MY11 LIFESTYLE SEDAN 4DR STEPTRONIC 6SP 2.0DT</VEHICLEDESCRIPTION>
+          <CHASSISNO>14251425142514251</CHASSISNO>
+          <STOCKNO>1</STOCKNO>
+          <ENGINENO>2</ENGINENO>
+          <REGISTRATIONNO>3</REGISTRATIONNO>
+          <ODOMETER>4</ODOMETER>
+          <EXTERIORCOLOR>V</EXTERIORCOLOR>
+          <INTERIORCOLOR>VI</INTERIORCOLOR>
+          <NOMINATEDDRIVER>VII</NOMINATEDDRIVER>
+          <MVINSCOMPANY>IAAIC</MVINSCOMPANY>
+          <INSURANCEPOLICYNO>IX</INSURANCEPOLICYNO>
+          <EXPIRYDATE>2015-03-12T10:57:16.2162284+11:00</EXPIRYDATE>
+          <TRADEINVALUE>5000.00</TRADEINVALUE>
+          <TRADEINDETAILS>
+            <MAKE>BMW</MAKE>
+            <MODELDESCRIPTION>X3</MODELDESCRIPTION>
+            <YEAR>2009</YEAR>
+            <REGISTRATIONNO>2193490210ID</REGISTRATIONNO>
+            <FINANCIER>NAB</FINANCIER>
+            <CONTRACTNO>12729823</CONTRACTNO>
+          </TRADEINDETAILS>
+        </VEHICLEDETAILS_INPUT>
+      </CREATEAPPLICATION_EXTERNAL>
+    </CreateApplication>
+  </soap:Body>
+</soap:Envelope>

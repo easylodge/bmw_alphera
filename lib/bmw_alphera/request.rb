@@ -267,8 +267,7 @@ class BmwAlphera::Request
   end
 
 
-
-  def send_data_bmw_alphera(access_hash)
+  def to_soap(access_hash)
     body = {
           :APPLICATIONSUMMARY => build_application_summary(access_hash),
           :QUOTEDETAILS => build_quote_details,
@@ -281,6 +280,10 @@ class BmwAlphera::Request
 
     xml_message = add_envelope(xml_message)
 
+  end
+
+
+  def post(xml_message)
     # bmw_xml_uploads = self.bmw_alphera_uploads.new(:input_xml => xml_message)
 
     bmw_url = "https://proxy1uat.bmwfinance.com.au/BizTalk_External_Interface_Proxy/BizTalk_External_Interface_DFE_External_Interface_Orchestration_BMWDFE_AU.asmx"

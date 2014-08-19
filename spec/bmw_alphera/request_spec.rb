@@ -14,10 +14,20 @@ describe BmwAlphera::Request do
       }
   end
 
-  describe '.send_data_bmw_alphera' do
+  describe '.to_soap' do
+    it "converts to xml" do
+      request = BmwAlphera::Request.new
+      xml = request.to_soap(@access_hash)
+      p xml
+      expect(xml).to_not eq({})
+    end
+  end
+
+  describe '.post' do
     it "post the data" do
       request = BmwAlphera::Request.new
-      post = request.send_data_bmw_alphera(@access_hash)
+      xml = request.to_soap(@access_hash)
+      post = request.post(xml)
       p post
       expect(post.code).to eq("200")
     end
