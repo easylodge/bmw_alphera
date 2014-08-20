@@ -1,5 +1,6 @@
 require 'bundler/setup'
 require 'bmw_alphera'
+require 'minitest' #Adding this to get rid of deprecation warning for rails 4.1
 require 'shoulda/matchers'
 Bundler.setup
 
