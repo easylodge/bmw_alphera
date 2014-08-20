@@ -15,7 +15,41 @@ describe BmwAlphera::Request do
     @quote_hash = 
       {
         :brand_code => 'PBALP',
-        :status_code => "ASUSE"
+        :status_code => "ASUSE",
+        :vehicle_source=> "VSINT", #VEHICLE_SOURCE 
+        :disbursements => 500,
+        :source_name => 'BMW GROUP FINANCIAL SERVICES', #Company Name
+        :gst => 'GSTIN', #GST CODES
+        :asset_price =>59700, #Glassguide vehicle + options price
+        :interest_rate => 9.9500,
+        :discount => 0.0,
+        :dealer_delivery => 0.0,
+        :loan_term => 48, #term/12*2
+        :rv_percent => 12,
+        :rv_amount => 0,
+        :regisrtation => 0.0,
+        :ctp_insurance => 0.0,
+        :state_code => 'DSVIC', #STATE_CODES
+        :trade_in_price => 5000,
+        :lct_applicable_code => "LCTST", #LCT_APPLICABLE_CODES
+        :frequency_type_code => "PFMON", #FREQUENCY_APPLICABLE
+        :deposit_amount => 0,
+        :payment_in_code => "PTADV", #PAYMENT_IN_CODES
+        :payment_structure => "PSNRM", #PAYMENT_STRUCTURE
+        :otther_asset_flag => 1,
+        :total_deposit => 5000,
+        :make => nil,
+        :series => nil,
+        :model => nil,
+        :full_name => "Peter Long",
+        :mobile_number => "0422125254",
+        :application_type => "APFIN", #APPLICATION_TYPES
+        :email => 'peter.long@bmwfinance.com.au',
+        :customer_type => 'TCIND', #CUSTOMER_TYPES
+        :TAXAPPLYDATE => DateTime.now,
+        :RVEFFECTIVEDATE => DateTime.now,
+        :SUBPRODUCTID => 39, #PRODUCT_SUBPRODUCT_MAPPING[1]
+        :PRODUCTID => 8 #PRODUCT_SUBPRODUCT_MAPPING[1]
       }
 
     @entity_hash = 
