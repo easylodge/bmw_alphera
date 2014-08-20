@@ -21,3 +21,4 @@ tmp
 *.a
 mkmf.log
 dev_config.yml
+test_request.xml
