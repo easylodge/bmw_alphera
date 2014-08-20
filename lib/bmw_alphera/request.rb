@@ -1,6 +1,11 @@
 class BmwAlphera::Request < ActiveRecord::Base
   self.table_name = "bmw_alphera_requests"
   has_one :response, dependent: :destroy, inverse_of: :request
+  validates :access, presence: true
+  validates :quote, presence: true
+  validates :entity, presence: true
+
+  after_initialize :to_soap
 
   def build_application_summary(access_hash)
     application_summary = { 
@@ -14,76 +19,50 @@ class BmwAlphera::Request < ActiveRecord::Base
   end
 
   def build_quote_details
-   #  amv = self.application_motor_vehicle
-   #  sv = amv.vehicle_selection
-
-   #  entity = self.applicants.first #unless !self.guarantors.blank?
-   # # entity = self.guarantors.first if entity.blank?
-
-   #  product_subproduct = Constants::PRODUCT_SUBPRODUCT_MAPPING[1]
-
-   #  product = case self.finance_type.title
-   #  when "Chattel Mortgage"
-   #    Constants::PRODUCT_SUBPRODUCT_MAPPING.select{|z| z[:product_name] == "Chattel Mortgage"}.first
-   #  when "Consumer Loan"
-   #    Constants::PRODUCT_SUBPRODUCT_MAPPING.select{|z| z[:product_name] == "Consumer Loan"}.first
-   #  when "Commercial Hire Purchase"
-   #    Constants::PRODUCT_SUBPRODUCT_MAPPING.select{|z| z[:product_name] == "Hire Purchase"}.first
-   #  when "Finance Lease" || "Consumer Lease" 
-   #    Constants::PRODUCT_SUBPRODUCT_MAPPING.select{|z| z[:product_name] == "Financial Lease"}.first
-   #  end
-
-
-   #  if sv.year.to_i >= Date.today.year
-   #    statuscode = Constants::STATUS_CODES.select{ |z| z[:description] == "New"}.first[:code]
-   #  else
-   #    statuscode = Constants::STATUS_CODES.select{ |z| z[:description] == "Used"}.first[:code]
-   #  end
-
-
-   #  vehiclesource = Constants::VEHICLE_SOURCE.select{ |z| z[:description] == "Private"}.first[:code]
-   quote_hash = {}
-
-    quote_details = {
-      :BRANDCODE => quote_hash[:brand_code], #BRAND_CODES
-      :STATUSCODE => quote_hash[:status_code], #STATUS_CODES
-      :VEHICLESOURCE => quote_hash[:vehicle_source], #VEHICLE_SOURCE 
-      :FEESANDCHARGESAMOUNT => quote_hash[:disbursements],
-      :SOURCENAME => quote_hash[:source_name], #Company Name
-      :GSTINCLUDED => quote_hash[:gst_code], #GST CODES
-      :ASSOCIATEDSERVICESAMOUNT => 0.0,
-      :ASSETPRICE => quote_hash[:asset_price], #Glassguide vehicle + options price
-      :INTERESTRATE => (quote_hash[:interest_rate] rescue 0.0),
-      :DISCOUNT => 0.0,
-      :DEALERDELIVERY => 0.0,
-      :LOANTERM => quote_hash[:finance_term], #term/12*2
-      :RVPERCENT => (quote_hash[:residual_percentage] rescue 0.0),
-      :RVAMOUNT => (quote_hash[:residual_amount] rescue 0.0),
-      :REGISTRATION => 0.0,
-      :CTPINSURANCE => 0.0,
-      :STATECODE => quote_hash[:state_code], #STATE_CODES
-      :TRADEINAMOUNT => (quote_hash[:trade_in_price] rescue 0.0),
-      :LCTAPPLICABLECODE => quote_hash[:lct_applicable_code], #LCT_APPLICABLE_CODES
-      :FREQUENCYTYPECODE => quote_hash[:frequency_type_code], #FREQUENCY_APPLICABLE
-      :CASHDEPOSITAMOUNT => (quote_hash[:deposit_amount] rescue 0.0),
-      :PAYMENTINCODE => quote_hash[:payment_in_code], #PAYMENT_IN_CODES
-      :PAYMENTSTRUCTURETYPE => quote_hash[:payment_structure], #PAYMENT_STRUCTURE
-      :OTHERASSETFLAG => 1,
-      :TOTALDEPOSIT => (quote_hash[:total_deposit] rescue 0.0),
-      :'MAKENAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote_hash[:make],
-      :'SERIESNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote_hash[:series],
-      :'MODELNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote_hash[:variant],
-      :CUSTOMERNAME => quote_hash[:full_name],
-      :MOBILENUMBER => (quote_hash[:mobile_number] rescue ""),
-      :APPLICATIONTYPE => quote_hash[:application_type], #APPLICATION_TYPES
-      :EMAILADDRESS => (quote_hash[:email] rescue ""),
-      :CUSTOMERTYPE => quote_hash, #CUSTOMER_TYPES
-      :TAXAPPLYDATE => DateTime.now,
-      :RVEFFECTIVEDATE => DateTime.now,
-      :SUBPRODUCTID => quote_hash[:sub_product_id], #PRODUCT_SUBPRODUCT_MAPPING[1]
-      :PRODUCTID => quote_hash[:product_id] #PRODUCT_SUBPRODUCT_MAPPING[1]
-    }
-    return quote_details
+    if self.quote
+      quote_details = {
+        :BRANDCODE => quote[:brand_code], #BRAND_CODES
+        :STATUSCODE => quote[:status_code], #STATUS_CODES
+        :VEHICLESOURCE => quote[:vehicle_source], #VEHICLE_SOURCE 
+        :FEESANDCHARGESAMOUNT => quote[:disbursements],
+        :SOURCENAME => quote[:source_name], #Company Name
+        :GSTINCLUDED => quote[:gst_code], #GST CODES
+        :ASSOCIATEDSERVICESAMOUNT => 0.0,
+        :ASSETPRICE => quote[:asset_price], #Glassguide vehicle + options price
+        :INTERESTRATE => (quote[:interest_rate] rescue 0.0),
+        :DISCOUNT => 0.0,
+        :DEALERDELIVERY => 0.0,
+        :LOANTERM => quote[:finance_term], #term/12*2
+        :RVPERCENT => (quote[:residual_percentage] rescue 0.0),
+        :RVAMOUNT => (quote[:residual_amount] rescue 0.0),
+        :REGISTRATION => 0.0,
+        :CTPINSURANCE => 0.0,
+        :STATECODE => quote[:state_code], #STATE_CODES
+        :TRADEINAMOUNT => (quote[:trade_in_price] rescue 0.0),
+        :LCTAPPLICABLECODE => quote[:lct_applicable_code], #LCT_APPLICABLE_CODES
+        :FREQUENCYTYPECODE => quote[:frequency_type_code], #FREQUENCY_APPLICABLE
+        :CASHDEPOSITAMOUNT => (quote[:deposit_amount] rescue 0.0),
+        :PAYMENTINCODE => quote[:payment_in_code], #PAYMENT_IN_CODES
+        :PAYMENTSTRUCTURETYPE => quote[:payment_structure], #PAYMENT_STRUCTURE
+        :OTHERASSETFLAG => 1,
+        :TOTALDEPOSIT => (quote[:total_deposit] rescue 0.0),
+        :'MAKENAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:make],
+        :'SERIESNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:series],
+        :'MODELNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:variant],
+        :CUSTOMERNAME => quote[:full_name],
+        :MOBILENUMBER => (quote[:mobile_number] rescue ""),
+        :APPLICATIONTYPE => quote[:application_type], #APPLICATION_TYPES
+        :EMAILADDRESS => (quote[:email] rescue ""),
+        :CUSTOMERTYPE => quote, #CUSTOMER_TYPES
+        :TAXAPPLYDATE => DateTime.now,
+        :RVEFFECTIVEDATE => DateTime.now,
+        :SUBPRODUCTID => quote[:sub_product_id], #PRODUCT_SUBPRODUCT_MAPPING[1]
+        :PRODUCTID => quote[:product_id] #PRODUCT_SUBPRODUCT_MAPPING[1]
+      }
+      quote_details
+    else
+      "No quote details"
+    end
   end
 
   def build_customer_details
@@ -269,25 +248,29 @@ class BmwAlphera::Request < ActiveRecord::Base
   end
 
 
-  def to_soap(access_hash)
-    body = {
-          :APPLICATIONSUMMARY => build_application_summary(access_hash),
-          :QUOTEDETAILS => build_quote_details,
-          :CUSTOMERDETAILS => build_customer_details
-        }
-
-    doc = to_dom('CREATEAPPLICATION_EXTERNAL', body, {:'xmlns' => "CreateApplication_Input.xsd"})
-
-    xml_message = doc.root.to_xml
-
-    xml_message = add_envelope(xml_message)
-
+  def to_soap
+    if self.access
+      body = {
+            :APPLICATIONSUMMARY => build_application_summary(self.access),
+            :QUOTEDETAILS => build_quote_details,
+            :CUSTOMERDETAILS => build_customer_details
+          }
+      doc = to_dom('CREATEAPPLICATION_EXTERNAL', body, {:'xmlns' => "CreateApplication_Input.xsd"})
+      self.xml = doc.root.to_xml
+      self.soap = add_envelope(self.xml)
+    else
+      "No access details"
+    end
   end
 
-  def post(xml_message)
-    bmw_url = "https://proxy1uat.bmwfinance.com.au/BizTalk_External_Interface_Proxy/BizTalk_External_Interface_DFE_External_Interface_Orchestration_BMWDFE_AU.asmx"
-    headers = {'Content-Type' => 'text/xml', 'Accept' => 'text/xml'}
-    HTTParty.post(bmw_url, :body => xml_message, :headers => headers)
+  def post
+    if self.soap
+      bmw_url = "https://proxy1uat.bmwfinance.com.au/BizTalk_External_Interface_Proxy/BizTalk_External_Interface_DFE_External_Interface_Orchestration_BMWDFE_AU.asmx"
+      headers = {'Content-Type' => 'text/xml', 'Accept' => 'text/xml'}
+      HTTParty.post(bmw_url, :body => self.soap, :headers => headers)
+    else
+      "No soap to post"
+    end
   end
 
 end

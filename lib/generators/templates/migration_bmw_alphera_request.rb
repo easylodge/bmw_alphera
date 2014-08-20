@@ -5,7 +5,7 @@ class BmwAlpheraRequest < ActiveRecord::Migration
       t.text :soap
       t.text :access
       t.text :entity
-      t.text :enquiry
+      t.text :quote
       
       t.timestamps
     end
