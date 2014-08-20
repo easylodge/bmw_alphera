@@ -21,39 +21,39 @@ class BmwAlphera::Request < ActiveRecord::Base
   def build_quote_details
     if self.quote
       quote_details = {
-        :BRANDCODE => quote[:brand_code], #BRAND_CODES
-        :STATUSCODE => quote[:status_code], #STATUS_CODES
+        :BRANDCODE => quote[:brand], #BRAND_CODES
+        :STATUSCODE => quote[:status], #STATUS_CODES
         :VEHICLESOURCE => quote[:vehicle_source], #VEHICLE_SOURCE 
         :FEESANDCHARGESAMOUNT => quote[:disbursements],
         :SOURCENAME => quote[:source_name], #Company Name
-        :GSTINCLUDED => quote[:gst_code], #GST CODES
+        :GSTINCLUDED => quote[:gst], #GST CODES
         :ASSOCIATEDSERVICESAMOUNT => 0.0,
         :ASSETPRICE => quote[:asset_price], #Glassguide vehicle + options price
         :INTERESTRATE => (quote[:interest_rate] rescue 0.0),
         :DISCOUNT => 0.0,
         :DEALERDELIVERY => 0.0,
-        :LOANTERM => quote[:finance_term], #term/12*2
-        :RVPERCENT => (quote[:residual_percentage] rescue 0.0),
+        :LOANTERM => quote[:loan_term], #term/12*2
+        :RVPERCENT => (quote[:residual_percent] rescue 0.0),
         :RVAMOUNT => (quote[:residual_amount] rescue 0.0),
         :REGISTRATION => 0.0,
         :CTPINSURANCE => 0.0,
-        :STATECODE => quote[:state_code], #STATE_CODES
-        :TRADEINAMOUNT => (quote[:trade_in_price] rescue 0.0),
-        :LCTAPPLICABLECODE => quote[:lct_applicable_code], #LCT_APPLICABLE_CODES
-        :FREQUENCYTYPECODE => quote[:frequency_type_code], #FREQUENCY_APPLICABLE
+        :STATECODE => quote[:state], #STATE_CODES
+        :TRADEINAMOUNT => (quote[:trade_in_amount] rescue 0.0),
+        :LCTAPPLICABLECODE => quote[:lct_applicable], #LCT_APPLICABLE_CODES
+        :FREQUENCYTYPECODE => quote[:frequency_type], #FREQUENCY_APPLICABLE
         :CASHDEPOSITAMOUNT => (quote[:deposit_amount] rescue 0.0),
-        :PAYMENTINCODE => quote[:payment_in_code], #PAYMENT_IN_CODES
+        :PAYMENTINCODE => quote[:payment_in], #PAYMENT_IN_CODES
         :PAYMENTSTRUCTURETYPE => quote[:payment_structure], #PAYMENT_STRUCTURE
         :OTHERASSETFLAG => 1,
         :TOTALDEPOSIT => (quote[:total_deposit] rescue 0.0),
         :'MAKENAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:make],
         :'SERIESNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:series],
         :'MODELNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:variant],
-        :CUSTOMERNAME => quote[:full_name],
+        :CUSTOMERNAME => quote[:customer_name],
         :MOBILENUMBER => (quote[:mobile_number] rescue ""),
         :APPLICATIONTYPE => quote[:application_type], #APPLICATION_TYPES
         :EMAILADDRESS => (quote[:email] rescue ""),
-        :CUSTOMERTYPE => quote, #CUSTOMER_TYPES
+        :CUSTOMERTYPE => quote[:customer_type], #CUSTOMER_TYPES
         :TAXAPPLYDATE => DateTime.now,
         :RVEFFECTIVEDATE => DateTime.now,
         :SUBPRODUCTID => quote[:sub_product_id], #PRODUCT_SUBPRODUCT_MAPPING[1]
