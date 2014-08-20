@@ -1,4 +1,6 @@
-class BmwAlphera::Request
+class BmwAlphera::Request < ActiveRecord::Base
+  self.table_name = "bmw_alphera_requests"
+  has_one :response, dependent: :destroy, inverse_of: :request
 
   def build_application_summary(access_hash)
     application_summary = { 
