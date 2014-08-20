@@ -1,6 +1,6 @@
 # BmwAlphera
 
-TODO: Write a gem description
+Submit finance applications to BMW Alphera.
 
 ## Installation
 
@@ -12,11 +12,17 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
+Then run install generator:
+  
+  rails g bmw_alphera:install
 
-    $ gem install bmw_alphera
+Then run migrations:
+
+  rake db:migrate
 
 ## Usage
+
+### Request
 
     access_hash = {
       :application_id => "uniqe appliction_id",
@@ -63,7 +69,34 @@ Or install it yourself as:
 
     } 
 
-    request = BmwAlphera::Request.new(access: access_hash, quote: quote_hash, entity: entity_hash)    
+    request = BmwAlphera::Request.new(access: access_hash, quote: quote_hash, entity: entity_hash)
+
+#### Instance Methods:
+
+    request.access - Access Hash
+    request.quote - Quote Hash
+    request.entity - Entity Hash
+    request.enquiry - Enquiry Hash
+    request.xml - XML message of request
+    request.soap - Complete SOAP envelope
+    request.post - Post to BMW Alphera
+
+### Response
+
+    post = request.post
+    response = BmwAlphera::Response.create(xml: post.body, 
+      headers: post.headers, code: post.code, 
+      success: post.success?, request_id: request.id)
+
+#### Instance Methods:
+
+    response.as_hash - Hash of whole response
+    response.xml - XML of response
+    response.code - Response status code
+    response.headers - Response headers
+    response.success? - Returns true or false (based on Httparty response)
+    response.error - Response errors if any
+
 
 Codes for quotes and entity hashes:
 
