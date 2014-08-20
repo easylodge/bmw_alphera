@@ -26,10 +26,11 @@ describe BmwAlphera::Request do
   describe '.post' do
     it "post the data" do
       request = BmwAlphera::Request.new
-      xml = request.to_soap(@access_hash)
+      # xml = request.to_soap(@access_hash)
+      xml = File.read('test_request.xml')
       post = request.post(xml)
       p post
-      expect(post.code).to eq("200")
+      expect(post.code).to eq(200)
     end
   end 
 end

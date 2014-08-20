@@ -282,26 +282,10 @@ class BmwAlphera::Request
 
   end
 
-
   def post(xml_message)
-    # bmw_xml_uploads = self.bmw_alphera_uploads.new(:input_xml => xml_message)
-
     bmw_url = "https://proxy1uat.bmwfinance.com.au/BizTalk_External_Interface_Proxy/BizTalk_External_Interface_DFE_External_Interface_Orchestration_BMWDFE_AU.asmx"
-    url = URI.parse(bmw_url)
-    http = Net::HTTP.new(url.host, url.port)
-    http.ssl_version = :SSLv3
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    response = nil
-    http.start do |http|
-      request = Net::HTTP::Post.new(url.path, {'Content-Type' =>'text/xml;charset=utf-8'})
-      request.body = xml_message
-      response = http.request(request)
-    end
-    # bmw_xml_uploads.output_xml = response.body
-    # bmw_xml_uploads.save(false)
-    # self.save(false)
-    response
+    headers = {'Content-Type' => 'text/xml', 'Accept' => 'text/xml'}
+    HTTParty.post(bmw_url, :body => xml_message, :headers => headers)
   end
 
 end
