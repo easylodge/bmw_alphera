@@ -7,6 +7,23 @@ class BmwAlphera::Request < ActiveRecord::Base
 
   after_initialize :to_soap
 
+  def schema
+    fname = File.expand_path( '../../lib/assets/CreateApplication_Input.xsd', File.dirname(__FILE__) )
+    File.read(fname)
+  end
+
+  def validate_xml
+    if self.xml
+      xsd = Nokogiri::XML::Schema(self.schema)
+      doc = Nokogiri::XML(self.xml)
+      xsd.validate(doc).each do |error|
+        error.message
+      end
+    else
+      "No xml to validate! - run to_soap"
+    end
+  end
+
   def build_application_summary
     application_summary = { 
       :PROVIDER_APPLICATION_ID => quote[:application_id] ,
@@ -46,9 +63,9 @@ class BmwAlphera::Request < ActiveRecord::Base
         :PAYMENTSTRUCTURETYPE => quote[:payment_structure], #PAYMENT_STRUCTURE
         :OTHERASSETFLAG => 1,
         :TOTALDEPOSIT => (quote[:total_deposit] rescue 0.0),
-        :'MAKENAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:make],
-        :'SERIESNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:series],
-        :'MODELNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:variant],
+        #:'MAKENAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:make],
+        #:'SERIESNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:series],
+        #:'MODELNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:variant],
         :CUSTOMERNAME => quote[:customer_name],
         :MOBILENUMBER => (quote[:mobile_number] rescue ""),
         :APPLICATIONTYPE => quote[:application_type], #APPLICATION_TYPES
@@ -138,10 +155,10 @@ class BmwAlphera::Request < ActiveRecord::Base
         :GENDER => entity[:gender], #GENDER
         :D_O_BBIRTH => entity[:date_of_birth], #to_datetime
         :FIRST_NAME => entity[:first_name],
-        :'MIDDLE_NAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity[:middle_name] rescue ""),
+        #:'MIDDLE_NAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity[:middle_name] rescue ""),
         :LAST_NAME => entity[:last_name],
         :MARITIAL_STATUS => entity[:marital_status], #MARITAL_STATUS
-        :'N_O_DEPENDENTS xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => entity[:number_of_dependents],
+        #:'N_O_DEPENDENTS xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => entity[:number_of_dependents],
         :AUSTRALIAN_RESIDENT => entity[:australian_resident], #AUSTRALIAN_RESIDENT
         :LICENSE_NO => entity[:drivers_licence_no],
         :LICENSE_STATE => entity[:drivers_licence_state] , #STATE_CODES
@@ -154,13 +171,13 @@ class BmwAlphera::Request < ActiveRecord::Base
         :CURR_ADD_DURATION_YRS => entity[:address_duration_years], #in years
         :CURR_ADD_DURATION_MNTH => entity[:address_duration_months], #in months
         :PRESENT_EMPLOYER => (entity[:employers_name] rescue ""),
-        :'PRESENT_EMP_CONT_PERSON xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity[:employer_contact] rescue ""),
+        #:'PRESENT_EMP_CONT_PERSON xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity[:employer_contact] rescue ""),
         :PRESENT_EMP_DURATION_YRS => (entity[:employment_duration_years] rescue ""),
-        :PRESENT_EMP_DURATION_MNTH => (entity[:employment_duration_years] rescue "" ),
+        :PRESENT_EMP_DURATION_MNTH => (entity[:employment_duration_months] rescue "" ),
         :TOTAL_MONTHLY_INCOME => (entity[:net_income]rescue ""),
         :TOTAL_INCOME => (entity[:net_income] rescue ""),
-        :'LANDLORD xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity_hash[:landlord] rescue ""),
-        :'PROPERTY_CONT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity_hash[:landlord_phone] rescue ""),
+        #:'LANDLORD xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity_hash[:landlord] rescue ""),
+        #:'PROPERTY_CONT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity_hash[:landlord_phone] rescue ""),
       }
 
       # if entity.entity_addresses.count > 1
