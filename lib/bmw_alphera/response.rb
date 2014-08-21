@@ -19,11 +19,17 @@ class BmwAlphera::Response < ActiveRecord::Base
   end
 
   def error
-    if self.xml && !self.success?
-      self.xml 
-    else
+    if ((self.result["APPLICATIONDATA"]["SUCCESS_FLAG"] == "false") rescue false)
+      self.result["ERRORDETAILS"]
+    elsif ((self.result["APPLICATIONDATA"]["SUCCESS_FLAG"] == "true") rescue false)
       "No error"
+    else
+      self.xml
     end
+  end
+
+  def result
+    self.to_hash["Envelope"]["Body"]["CreateApplicationResponse"]["OutputXML"]["Result"]["OutputXML"]["Result"]["CREATEAPPLICATION_OUTPUT"] rescue self.xml
   end
 
 end

@@ -25,13 +25,13 @@ Then run migrations:
 ### Request
 
     access_hash = {
-      :application_id => "uniqe appliction_id",
       :dealer_id => "dealer_id",
       :dealer_password => "dealer_password",
       :user_id => "user_password"
     } 
 
     quote_hash = {
+      :application_id => "uniqe appliction_id",
       :brand => 'PBALP', # See BRAND_CODES
       :status => "ASUSE", # See STATUS_CODES
       :vehicle_source=> "VSINT", # See VEHICLE_SOURCE 
@@ -61,12 +61,33 @@ Then run migrations:
       :application_type => "APFIN", # See APPLICATION_TYPES
       :email => 'peter.long@bmwfinance.com.au',
       :customer_type => 'TCIND', # See CUSTOMER_TYPES
-      :sub_product_id => 39, #PRODUCT_SUBPRODUCT_MAPPING[1]
-      :product_id => 8 #PRODUCT_SUBPRODUCT_MAPPING[1]
+      :sub_product_id => 39, # See PRODUCT_SUBPRODUCT_MAPPING
+      :product_id => 8 # See PRODUCT_SUBPRODUCT_MAPPING
     }
 
     entity_hash = {
-
+      :customer_type => "TCIND", # See CUSTOMER_TYPES
+      :customer_relation => "RTCST", # See PROSPECT_TYPES
+      :title => "TIMRR", # See TITLE_CODES
+      :gender => "GRMAL", # See GENDER
+      :date_of_birth => "1984-05-07T00:00:00.0000000+10:00", # Must use .to_datetime
+      :first_name => "Peter",
+      :last_name => "Long",
+      :marital_status => "MSMAR", # See MARITAL_STATUS
+      :australian_resident => "OPTYS", # See AUSTRALIAN_RESIDENT
+      :drivers_licence_no => "8521452145",
+      :drivers_licence_state => "DSVIC" , # See STATE_CODES
+      :mobile_number => "0393677752",
+      :email => "peter.long@bmwfinance.com.au",
+      :street_address => "783 Springvale Rd", 
+      :suburb => "MULGRAVE",
+      :state => "DSVIC", #See STATE_CODES
+      :post_code => "3170",
+      :address_duration_years => 6, 
+      :address_duration_months => 2, 
+      :employment_duration_years => 6,
+      :employment_duration_months => 2,
+      :net_income => 6000
     } 
 
     request = BmwAlphera::Request.new(access: access_hash, quote: quote_hash, entity: entity_hash)
@@ -76,8 +97,8 @@ Then run migrations:
     request.access - Access Hash
     request.quote - Quote Hash
     request.entity - Entity Hash
-    request.enquiry - Enquiry Hash
     request.xml - XML message of request
+    request.validate_xml - Validate xml, returns [] if no errors
     request.soap - Complete SOAP envelope
     request.post - Post to BMW Alphera
 
@@ -96,6 +117,7 @@ Then run migrations:
     response.headers - Response headers
     response.success? - Returns true or false (based on Httparty response)
     response.error - Response errors if any
+    response.result - The useful part of the response in hash format
 
 
 Codes for quotes and entity hashes:
@@ -241,10 +263,34 @@ Codes for quotes and entity hashes:
       { :code => "RTGA2", :description => "Guarantor 2" }
     ]
 
+    PRODUCT_SUBPRODUCT_MAPPING = [
+      { :product_id => 10, :product_name => "Chattel Mortgage", :sub_product_id => 15, :sub_product_name => "Chattel Mortgage", :fees_charges => [
+                                                             { :description => "Stamp Duty ( Only for NSW )", :code => "FCSTP"}, 
+                                                             { :description => "PPSR Fee", :code => "FCVSR" },
+                                                             { :description => "Establishment Fee", :code => "FCESF"},
+                                                             { :description => "Dealer Origination Fees", :code => "FCDOF"}
+                                                            ]}, 
+      { :product_id => 7, :product_name => "Consumer Loan", :sub_product_id => 11, :sub_product_name => "Loan", :fees_charges => [
+                                                             { :description => "Stamp Duty ( Only for NSW )", :code => "FCSTP" }, 
+                                                             { :description => "PPSR Fee", :code => "FCVSR" },
+                                                             { :description => "Establishment Fee", :code => "FCESF" },
+                                                             { :description => "Dealer Origination Fees", :code => "FCDOF" }
+                                                            ]}, 
+      { :product_id => 11, :product_name => "Financial Lease", :sub_product_id => 47, :sub_product_name => "Novated Lease", :fees_charges => [
+                                                             { :description => "Establishment Fee", :code => "FCESF" },
+                                                             { :description => "Dealer Origination Fees", :code => "FCDOF" }
+                                                            ]}, 
+      { :product_id => 8, :product_name => "Hire Purchase", :sub_product_id => 9, :sub_product_name => "Hire Purchase", :fees_charges => [
+                                                             { :description => "Establishment Fee", :code => "FCESF" },
+                                                             { :description => "Dealer Origination Fees", :code => "FCDOF" }
+                                                            ]}, 
+  ]
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/bmw_alphera/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+3. See 'dev.rb' in root for instructions
+4. Commit your changes (`git commit -am 'Add some feature'`)
+5. Push to the branch (`git push origin my-new-feature`)
+6. Create a new Pull Request
