@@ -1,4 +1,4 @@
-class BmwAlpheraResponse < ActiveRecord::Migration
+class CreateBmwAlpheraResponse < ActiveRecord::Migration
   def self.up
     create_table :bmw_alphera_responses do |t|
       t.text :headers

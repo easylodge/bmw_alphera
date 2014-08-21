@@ -1,4 +1,4 @@
-class BmwAlpheraRequest < ActiveRecord::Migration
+class CreateBmwAlpheraRequest < ActiveRecord::Migration
   def self.up
     create_table :bmw_alphera_requests do |t|
       t.text :xml
