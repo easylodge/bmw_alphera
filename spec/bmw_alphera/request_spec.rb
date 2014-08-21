@@ -7,16 +7,16 @@ describe BmwAlphera::Request do
     config = YAML.load_file('dev_config.yml')
     @access_hash = 
       {
-        :application_id => config["appliction_id"],
         :dealer_id => config["dealer_id"],
         :dealer_password => config["dealer_password"],
         :user_id => config["user_id"]
       }
     @quote_hash = 
       {
+        :application_id => config["appliction_id"],
         :brand => 'PBALP',
         :status => "ASUSE",
-        :vehicle_source=> "VSINT", #VEHICLE_SOURCE 
+        :vehicle_source=> "VSEXT", #VEHICLE_SOURCE 
         :disbursements => 500,
         :source_name => 'BMW GROUP FINANCIAL SERVICES', #Company Name
         :gst => 'GSTIN', #GST CODES
@@ -49,6 +49,36 @@ describe BmwAlphera::Request do
 
     @entity_hash = 
       {
+        :co_applicatant => "OPTYS",
+
+        :customer_type => "TCIND", #CUSTOMER_TYPES
+        :customer_relation => "RTCST", #CUSTOMER_TYPES
+        :title => "TIMRR", #TITLE_CODES
+        :gender => "GRMAL", #GENDER
+        :date_of_birth => "1984-05-07", #to_datetime
+        :first_name => "Peter",
+        :middle_name => "",
+        :last_name => "Long",
+        :marital_status => "MSMAR", #MARITAL_STATUS
+        :no_of_dependents => 5,
+        :australian_resident => "OPTYS", #AUSTRALIAN_RESIDENT
+        :drivers_licence_no => "8521452145",
+        :drivers_licence_state => "DSVIC" , #STATE_CODES
+        :mobile_number => "0393677752",
+        :email => "peter.long@bmwfinance.com.au",
+        :street_address => "783 Springvale Rd", #unformatted street address
+        :suburb => "MULGRAVE",
+        :state => "DSVIC", #STATE_CODES
+        :post_code => "3170",
+        :address_duration_years => 6, #in years
+        :address_duration_months => 2, #in months
+        :employer => (entity[:employers_name] rescue ""),
+        :employer_contact => (entity[:employer_contact] rescue ""),
+        :employment_duration_years => (entity[:employment_duration_years] rescue ""),
+        :employment_duration_months => (entity[:employment_duration_years] rescue "" ),
+        :net_income => 6000,
+        :landlord => (entity_hash[:landlord] rescue ""),
+        :landlord_phone => (entity_hash[:landlord_phone] rescue ""),
 
       }  
     @request = BmwAlphera::Request.new(access: @access_hash, quote: @quote_hash, entity: @entity_hash)
@@ -77,7 +107,7 @@ describe BmwAlphera::Request do
           expect(@request.xml).to include('<STATUSCODE>ASUSE</STATUSCODE>')
         end
         it "saves vehicle_source" do
-          expect(@request.xml).to include('<VEHICLESOURCE>VSINT</VEHICLESOURCE>')
+          expect(@request.xml).to include('<VEHICLESOURCE>VS</VEHICLESOURCE>')
         end
         it "saves disbursements" do
           expect(@request.xml).to include('<FEESANDCHARGESAMOUNT>500</FEESANDCHARGESAMOUNT>')
@@ -151,6 +181,69 @@ describe BmwAlphera::Request do
         it "saves product_id" do
           expect(@request.xml).to include('<PRODUCTID>8</PRODUCTID>')
         end
+      end
+
+      describe "customerdetails" do
+        it "saves co_applicant" do
+          expect(@request.xml).to include('<CO-APPLICANT>OPTNO</CO-APPLICANT>')
+        end
+        it "saves total_monthly_income" do
+          expect(@request.xml).to include('<TOTAL_MONTHLY_INCOME_AMOUNT>6000</TOTAL_MONTHLY_INCOME_AMOUNT>')
+        end
+
+      end
+
+      describe "customer_details" do
+        
+        it "saves co_applicant_nature" do
+          expect(@request.xml).to include('<COAPPLICANT_NATURE>CNDCR</COAPPLICANT_NATURE>')
+        end
+        it "saves loan_purpose" do
+          expect(@request.xml).to include('<LOAN_PURPOSE>LPFST</LOAN_PURPOSE>')
+        end
+        it "saves prospect_type" do
+          expect(@request.xml).to include('<PROSPECT_TYPE>TCIND</PROSPECT_TYPE>')
+        end
+        it "saves title" do
+          expect(@request.xml).to include('<TITLE>TIMRR</TITLE>')
+        end
+        it "saves gender" do
+          expect(@request.xml).to include('<GENDER>GRMAL</GENDER>')
+        end
+        it "saves date_of_birth" do
+          expect(@request.xml).to include('<D_O_BBIRTH>1984-05-07</D_O_BBIRTH>')
+        end
+        it "saves first_name" do
+          expect(@request.xml).to include('<FIRST_NAME>Peter</FIRST_NAME>')
+        end
+        it "saves last_name" do
+          expect(@request.xml).to include('<LAST_NAME>Long</LAST_NAME>')
+        end
+        it "saves maritial_status" do
+          expect(@request.xml).to include('<MARITIAL_STATUS>MSMAR</MARITIAL_STATUS>')
+        end
+        it "saves no_of_dependents" do
+          expect(@request.xml).to include('<N_O_DEPENDENTS>5</N_O_DEPENDENTS>')
+        end
+        it "saves australian_resident" do
+          expect(@request.xml).to include('<AUSTRALIAN_RESIDENT>OPTYS</AUSTRALIAN_RESIDENT>')
+        end
+        it "saves maritial_status" do
+          expect(@request.xml).to include('<MARITIAL_STATUS>MSMAR</MARITIAL_STATUS>')
+        end
+        it "saves drivers_licence_no" do
+          expect(@request.xml).to include('<LICENSE_NO>8521452145</LICENSE_NO>')
+        end
+        it "saves drivers_licence_state" do
+          expect(@request.xml).to include('<LICENSE_STATE>DSVIC</LICENSE_STATE>')
+        end
+        it "saves mobile_number" do
+          expect(@request.xml).to include('<MOBILE_NO>0422125254</MOBILE_NO>')
+        end
+        it "saves email" do
+          expect(@request.xml).to include('<EMAIL_ID>peter.long@bmwfinance.com.au</EMAIL_ID>')
+        end
+       
 
 
 

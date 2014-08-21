@@ -7,13 +7,13 @@ class BmwAlphera::Request < ActiveRecord::Base
 
   after_initialize :to_soap
 
-  def build_application_summary(access_hash)
+  def build_application_summary
     application_summary = { 
-      :PROVIDER_APPLICATION_ID => access_hash[:application_id] ,
-      :DEALER_ID => access_hash[:dealer_id],
-      :DEALER_PASSWORD => access_hash[:dealer_password],
+      :PROVIDER_APPLICATION_ID => quote[:application_id] ,
+      :DEALER_ID => access[:dealer_id],
+      :DEALER_PASSWORD => access[:dealer_password],
       :ACTION => "SAVE",
-      :USER_ID => access_hash[:user_id]
+      :USER_ID => access[:user_id]
     }
     return application_summary
   end
@@ -132,33 +132,33 @@ class BmwAlphera::Request < ActiveRecord::Base
       
 
       customer_details = {
-        :PROSPECT_TYPE => entity_hash[:customer_type], #CUSTOMER_TYPES
-        :PROSPECT_RELATION => entity_hash[:relation], #CUSTOMER_TYPES
-        :TITLE => entity_hash[:title], #TITLE_CODES
-        :GENDER => entity_hash[:gender], #GENDER
-        :D_O_BBIRTH => entity_hash[:date_of_birth], #to_datetime
-        :FIRST_NAME => entity_hash[:first_name],
-        :'MIDDLE_NAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity_hash[:middle_name] rescue ""),
-        :LAST_NAME => entity_hash[:last_name],
-        :MARITIAL_STATUS => entity_hash[:marital_status], #MARITAL_STATUS
-        :'N_O_DEPENDENTS xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => entity_hash[:number_of_dependents],
-        :AUSTRALIAN_RESIDENT => entity_hash[:australian_resident], #AUSTRALIAN_RESIDENT
-        :LICENSE_NO => entity_hash[:drivers_licence_number],
-        :LICENSE_STATE => entity_hash[:licence_state] , #STATE_CODES
-        :MOBILE_NO => (entity_hash[:mobile_number] rescue ""),
-        :EMAIL_ID => (entity_hash[:email] rescue ""),
-        :CURR_ADD_ADDRESS => entity_hash[:current_address], #unformatted street address
-        :CURR_ADD_SUBURB => entity_hash[:suburb],
-        :CURR_ADD_STATE => entity_hash[:state_code], #STATE_CODES
-        :CURR_ADD_POSTAL_CODE => entity_hash[:post_code],
-        :CURR_ADD_DURATION_YRS => entity_hash[:address_duration_years], #in years
-        :CURR_ADD_DURATION_MNTH => entity_hash[:address_duration_months], #in months
-        :PRESENT_EMPLOYER => (entity_hash[:employers_name] rescue ""),
-        :'PRESENT_EMP_CONT_PERSON xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity_hash[:employer_contact] rescue ""),
-        :PRESENT_EMP_DURATION_YRS => (entity_hash[:employment_duration_years] rescue ""),
-        :PRESENT_EMP_DURATION_MNTH => (entity_hash[:employment_duration_years] rescue "" ),
-        :TOTAL_MONTHLY_INCOME => (entity_hash[:net_income]rescue ""),
-        :TOTAL_INCOME => (entity_hash[:net_income] rescue ""),
+        :PROSPECT_TYPE => entity[:customer_type], #CUSTOMER_TYPES
+        :PROSPECT_RELATION => entity[:customer_relation], #CUSTOMER_TYPES
+        :TITLE => entity[:title], #TITLE_CODES
+        :GENDER => entity[:gender], #GENDER
+        :D_O_BBIRTH => entity[:date_of_birth], #to_datetime
+        :FIRST_NAME => entity[:first_name],
+        :'MIDDLE_NAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity[:middle_name] rescue ""),
+        :LAST_NAME => entity[:last_name],
+        :MARITIAL_STATUS => entity[:marital_status], #MARITAL_STATUS
+        :'N_O_DEPENDENTS xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => entity[:number_of_dependents],
+        :AUSTRALIAN_RESIDENT => entity[:australian_resident], #AUSTRALIAN_RESIDENT
+        :LICENSE_NO => entity[:drivers_licence_no],
+        :LICENSE_STATE => entity[:drivers_licence_state] , #STATE_CODES
+        :MOBILE_NO => (entity[:mobile_number] rescue ""),
+        :EMAIL_ID => (entity[:email] rescue ""),
+        :CURR_ADD_ADDRESS => entity[:street_address], #unformatted street address
+        :CURR_ADD_SUBURB => entity[:suburb],
+        :CURR_ADD_STATE => entity[:state], #STATE_CODES
+        :CURR_ADD_POSTAL_CODE => entity[:post_code],
+        :CURR_ADD_DURATION_YRS => entity[:address_duration_years], #in years
+        :CURR_ADD_DURATION_MNTH => entity[:address_duration_months], #in months
+        :PRESENT_EMPLOYER => (entity[:employers_name] rescue ""),
+        :'PRESENT_EMP_CONT_PERSON xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity[:employer_contact] rescue ""),
+        :PRESENT_EMP_DURATION_YRS => (entity[:employment_duration_years] rescue ""),
+        :PRESENT_EMP_DURATION_MNTH => (entity[:employment_duration_years] rescue "" ),
+        :TOTAL_MONTHLY_INCOME => (entity[:net_income]rescue ""),
+        :TOTAL_INCOME => (entity[:net_income] rescue ""),
         :'LANDLORD xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity_hash[:landlord] rescue ""),
         :'PROPERTY_CONT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity_hash[:landlord_phone] rescue ""),
       }
@@ -185,7 +185,7 @@ class BmwAlphera::Request < ActiveRecord::Base
     customerdetails = {
       :'CO-APPLICANT' => "OPTNO",
       :CUSTOMER_DETAILS => customer_details,
-      :TOTAL_MONTHLY_INCOME_AMOUNT => (entity_hash[:net_income] rescue 0 )
+      :TOTAL_MONTHLY_INCOME_AMOUNT => (entity[:net_income] rescue 0 )
 
     }
 
@@ -251,7 +251,7 @@ class BmwAlphera::Request < ActiveRecord::Base
   def to_soap
     if self.access
       body = {
-            :APPLICATIONSUMMARY => build_application_summary(self.access),
+            :APPLICATIONSUMMARY => build_application_summary,
             :QUOTEDETAILS => build_quote_details,
             :CUSTOMERDETAILS => build_customer_details
           }
