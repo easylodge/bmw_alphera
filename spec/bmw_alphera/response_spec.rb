@@ -7,7 +7,6 @@ describe BmwAlphera::Response do
     config = YAML.load_file('dev_config.yml')
     @access_hash = 
       {
-        :application_id => config["appliction_id"],
         :dealer_id => config["dealer_id"],
         :dealer_password => config["dealer_password"],
         :user_id => config["user_id"]
@@ -15,9 +14,10 @@ describe BmwAlphera::Response do
 
      @quote_hash = 
       {
+        :application_id => '1237654',
         :brand => 'PBALP',
         :status => "ASUSE",
-        :vehicle_source=> "VSINT", #VEHICLE_SOURCE 
+        :vehicle_source=> "VSEXT", #VEHICLE_SOURCE 
         :disbursements => 500,
         :source_name => 'BMW GROUP FINANCIAL SERVICES', #Company Name
         :gst => 'GSTIN', #GST CODES
@@ -50,7 +50,28 @@ describe BmwAlphera::Response do
 
     @entity_hash = 
       {
-
+        :customer_type => "TCIND", #CUSTOMER_TYPES
+        :customer_relation => "RTCST", #CUSTOMER_TYPES
+        :title => "TIMRR", #TITLE_CODES
+        :gender => "GRMAL", #GENDER
+        :date_of_birth => "1984-05-07T00:00:00.0000000+10:00", #to_datetime
+        :first_name => "Peter",
+        :middle_name => "",
+        :last_name => "Long",
+        :marital_status => "MSMAR", #MARITAL_STATUS
+        :no_of_dependents => 5,
+        :australian_resident => "OPTYS", #AUSTRALIAN_RESIDENT
+        :drivers_licence_no => "8521452145",
+        :drivers_licence_state => "DSVIC" , #STATE_CODES
+        :mobile_number => "0393677752",
+        :email => "peter.long@bmwfinance.com.au",
+        :street_address => "783 Springvale Rd", #unformatted street address
+        :suburb => "MULGRAVE",
+        :state => "DSVIC", #STATE_CODES
+        :post_code => "3170",
+        :address_duration_years => 6, #in years
+        :address_duration_months => 2, #in months
+        :net_income => 6000,
       }  
     @request = BmwAlphera::Request.new(access: @access_hash, quote: @quote_hash, entity: @entity_hash)
     @post = @request.post

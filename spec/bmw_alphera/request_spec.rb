@@ -13,7 +13,7 @@ describe BmwAlphera::Request do
       }
     @quote_hash = 
       {
-        :application_id => config["appliction_id"],
+        :application_id => '1237654',
         :brand => 'PBALP',
         :status => "ASUSE",
         :vehicle_source=> "VSEXT", #VEHICLE_SOURCE 
@@ -49,13 +49,11 @@ describe BmwAlphera::Request do
 
     @entity_hash = 
       {
-        :co_applicatant => "OPTYS",
-
         :customer_type => "TCIND", #CUSTOMER_TYPES
         :customer_relation => "RTCST", #CUSTOMER_TYPES
         :title => "TIMRR", #TITLE_CODES
         :gender => "GRMAL", #GENDER
-        :date_of_birth => "1984-05-07", #to_datetime
+        :date_of_birth => "1984-05-07T00:00:00.0000000+10:00", #to_datetime
         :first_name => "Peter",
         :middle_name => "",
         :last_name => "Long",
@@ -72,14 +70,9 @@ describe BmwAlphera::Request do
         :post_code => "3170",
         :address_duration_years => 6, #in years
         :address_duration_months => 2, #in months
-        :employer => (entity[:employers_name] rescue ""),
-        :employer_contact => (entity[:employer_contact] rescue ""),
-        :employment_duration_years => (entity[:employment_duration_years] rescue ""),
-        :employment_duration_months => (entity[:employment_duration_years] rescue "" ),
+        :employment_duration_years => 6, #in years
+        :employment_duration_months => 2, #in months
         :net_income => 6000,
-        :landlord => (entity_hash[:landlord] rescue ""),
-        :landlord_phone => (entity_hash[:landlord_phone] rescue ""),
-
       }  
     @request = BmwAlphera::Request.new(access: @access_hash, quote: @quote_hash, entity: @entity_hash)
   end
@@ -107,7 +100,7 @@ describe BmwAlphera::Request do
           expect(@request.xml).to include('<STATUSCODE>ASUSE</STATUSCODE>')
         end
         it "saves vehicle_source" do
-          expect(@request.xml).to include('<VEHICLESOURCE>VS</VEHICLESOURCE>')
+          expect(@request.xml).to include('<VEHICLESOURCE>VSEXT</VEHICLESOURCE>')
         end
         it "saves disbursements" do
           expect(@request.xml).to include('<FEESANDCHARGESAMOUNT>500</FEESANDCHARGESAMOUNT>')
@@ -195,12 +188,6 @@ describe BmwAlphera::Request do
 
       describe "customer_details" do
         
-        it "saves co_applicant_nature" do
-          expect(@request.xml).to include('<COAPPLICANT_NATURE>CNDCR</COAPPLICANT_NATURE>')
-        end
-        it "saves loan_purpose" do
-          expect(@request.xml).to include('<LOAN_PURPOSE>LPFST</LOAN_PURPOSE>')
-        end
         it "saves prospect_type" do
           expect(@request.xml).to include('<PROSPECT_TYPE>TCIND</PROSPECT_TYPE>')
         end
@@ -211,7 +198,7 @@ describe BmwAlphera::Request do
           expect(@request.xml).to include('<GENDER>GRMAL</GENDER>')
         end
         it "saves date_of_birth" do
-          expect(@request.xml).to include('<D_O_BBIRTH>1984-05-07</D_O_BBIRTH>')
+          expect(@request.xml).to include('<D_O_BBIRTH>1984-05-07T00:00:00.0000000+10:00</D_O_BBIRTH>')
         end
         it "saves first_name" do
           expect(@request.xml).to include('<FIRST_NAME>Peter</FIRST_NAME>')
@@ -222,14 +209,8 @@ describe BmwAlphera::Request do
         it "saves maritial_status" do
           expect(@request.xml).to include('<MARITIAL_STATUS>MSMAR</MARITIAL_STATUS>')
         end
-        it "saves no_of_dependents" do
-          expect(@request.xml).to include('<N_O_DEPENDENTS>5</N_O_DEPENDENTS>')
-        end
         it "saves australian_resident" do
           expect(@request.xml).to include('<AUSTRALIAN_RESIDENT>OPTYS</AUSTRALIAN_RESIDENT>')
-        end
-        it "saves maritial_status" do
-          expect(@request.xml).to include('<MARITIAL_STATUS>MSMAR</MARITIAL_STATUS>')
         end
         it "saves drivers_licence_no" do
           expect(@request.xml).to include('<LICENSE_NO>8521452145</LICENSE_NO>')
@@ -238,7 +219,7 @@ describe BmwAlphera::Request do
           expect(@request.xml).to include('<LICENSE_STATE>DSVIC</LICENSE_STATE>')
         end
         it "saves mobile_number" do
-          expect(@request.xml).to include('<MOBILE_NO>0422125254</MOBILE_NO>')
+          expect(@request.xml).to include('<MOBILENUMBER>0422125254</MOBILENUMBER>')
         end
         it "saves email" do
           expect(@request.xml).to include('<EMAIL_ID>peter.long@bmwfinance.com.au</EMAIL_ID>')
@@ -256,7 +237,17 @@ describe BmwAlphera::Request do
       end
     end
 
-  
+    describe '.schema' do
+      it "resturns schema based on xsd" do
+        expect(@request.schema).to_not eq(nil)
+      end
+    end
+
+    describe '.validate_xml' do
+      it "returns [] if not validation errors" do
+        expect(@request.validate_xml).to eq([])
+      end
+    end
   end
 
   # describe '.post' do
