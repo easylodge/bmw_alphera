@@ -65,28 +65,62 @@ Then run migrations:
       :product_id => 8 # See PRODUCT_SUBPRODUCT_MAPPING
     }
 
-    entity_hash = {
+    consumer_entity_hash = {
       :customer_type => "TCIND", # See CUSTOMER_TYPES
       :customer_relation => "RTCST", # See PROSPECT_TYPES
       :title => "TIMRR", # See TITLE_CODES
       :gender => "GRMAL", # See GENDER
       :date_of_birth => "1984-05-07T00:00:00.0000000+10:00", # Must use .to_datetime
       :first_name => "Peter",
+      :middle_name => "John",
       :last_name => "Long",
       :marital_status => "MSMAR", # See MARITAL_STATUS
+      :number_of_dependents => 5,
       :australian_resident => "OPTYS", # See AUSTRALIAN_RESIDENT
       :drivers_licence_no => "8521452145",
       :drivers_licence_state => "DSVIC" , # See STATE_CODES
       :mobile_number => "0393677752",
       :email => "peter.long@bmwfinance.com.au",
-      :street_address => "783 Springvale Rd", 
-      :suburb => "MULGRAVE",
-      :state => "DSVIC", #See STATE_CODES
-      :post_code => "3170",
-      :address_duration_years => 6, 
-      :address_duration_months => 2, 
-      :employment_duration_years => 6,
-      :employment_duration_months => 2,
+      :current_address => {
+        :street => "783 Springvale Rd", #unformatted street address
+        :suburb => "MULGRAVE",
+        :state => "DSVIC", #STATE_CODES
+        :post_code => "3170",
+        :duration_years => 6, #in years
+        :duration_months => 2, #in months
+      },
+      :previous_address => {
+        :street => "18 Spring Rd", #unformatted street address
+        :suburb => "TABLEVIEW",
+        :state => "DSVIC", #STATE_CODES
+        :post_code => "3170",
+        :duration_years => 2, #in years
+        :duration_months => 1, #in months
+      },
+      :current_employer => {
+        :name => "MickySoft inc",
+        :contact => "James Small",
+        :duration_years => 6,
+        :duration_months => 2,
+      },
+      :previous_employer => {
+          :name => "BrotherSoft inc",
+          :contact => "James May",
+          :duration_years => 2,
+          :duration_months => 1,
+      },
+      :net_income => 6000,
+      :landlord => "Mike Phils",
+      :landlord_phone => "0116664400",
+    }
+
+    commercial_entity_hash = {
+      :customer_type => "TCCOR", #CUSTOMER_TYPES
+      :relation => "RTGA1", #PROSPECT_RELATIONS
+      :company_name => "Urban Vertical Pty Ltd",
+      :year_est => 1999,
+      :ref_contact_number => '0215553300',
+      :abn => '71 163 072 508',
       :net_income => 6000
     } 
 

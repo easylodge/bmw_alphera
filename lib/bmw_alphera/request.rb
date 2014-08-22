@@ -63,9 +63,9 @@ class BmwAlphera::Request < ActiveRecord::Base
         :PAYMENTSTRUCTURETYPE => quote[:payment_structure], #PAYMENT_STRUCTURE
         :OTHERASSETFLAG => 1,
         :TOTALDEPOSIT => (quote[:total_deposit] rescue 0.0),
-        #:'MAKENAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:make],
-        #:'SERIESNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:series],
-        #:'MODELNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:variant],
+        :'MAKENAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:make],
+        :'SERIESNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:series],
+        :'MODELNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:variant],
         :CUSTOMERNAME => quote[:customer_name],
         :MOBILENUMBER => (quote[:mobile_number] rescue ""),
         :APPLICATIONTYPE => quote[:application_type], #APPLICATION_TYPES
@@ -83,36 +83,15 @@ class BmwAlphera::Request < ActiveRecord::Base
   end
 
   def build_customer_details
-
-    commercial = false  
-    # entity = self.applicants.first unless !self.guarantors.blank?
-    # entity = self.guarantors.first if entity.blank?
-    # commercial = true if entity.type == "Guarantor"  
-
-
-    #   epd = entity.entity_personal_details
-
-    #   australian_resident = case epd.citizenship_id
-    #   when 1 || 2 || 3 || 4
-    #     Constants::AUSTRALIAN_RESIDENT.select{|z| z[:description] == "Yes"}.first[:code]
-    #   else
-    #     Constants::AUSTRALIAN_RESIDENT.select{|z| z[:description] == "No"}.first[:code]
-    #   end
-      
-    #   eaf = entity.entity_addresses.first
-
-    entity_hash = {}
-
-    if commercial == true
+    if entity[:customer_type] == "TCCOR"
       ## Commercial Code:
-      company = self.applicants.first
       customer_details = {
-        :PROSPECT_TYPE => entity_hash[:customer_type], #CUSTOMER_TYPES
-        :PROSPECT_RELATION => entity_hash[:relation], #PROSPECT_RELATIONS
-        :COMPANY_NAME => entity_hash[:company_name],
-        :YEAR_EST => entity_hash[:year_est],
-        :CORP_PERSONAL_REF_CONT_NO => entity_hash[:ref_contact_number],
-        :ABN => entity_hash[:abn]
+        :PROSPECT_TYPE => entity[:customer_type], #CUSTOMER_TYPES
+        :PROSPECT_RELATION => entity[:relation], #PROSPECT_RELATIONS
+        :COMPANY_NAME => entity[:company_name],
+        :YEAR_EST => entity[:year_est],
+        :CORP_PERSONAL_REF_CONT_NO => entity[:ref_contact_number],
+        :ABN => entity[:abn]
         #:TITLE => Constants::TITLE_CODES.select{ |z| z[:description].downcase == epd.title.to_s.downcase }.first[:code],
         # :GENDER => Constants::GENDER.select{|z| z[:description] == epd.gender}.first[:code],
         # :D_O_BBIRTH => epd.date_of_birth.to_datetime,
@@ -143,11 +122,8 @@ class BmwAlphera::Request < ActiveRecord::Base
       }
 
 
-    else
+    elsif entity[:customer_type] == "TCIND"
       ## Consumer Code:
-
-      
-
       customer_details = {
         :PROSPECT_TYPE => entity[:customer_type], #CUSTOMER_TYPES
         :PROSPECT_RELATION => entity[:customer_relation], #CUSTOMER_TYPES
@@ -155,48 +131,48 @@ class BmwAlphera::Request < ActiveRecord::Base
         :GENDER => entity[:gender], #GENDER
         :D_O_BBIRTH => entity[:date_of_birth], #to_datetime
         :FIRST_NAME => entity[:first_name],
-        #:'MIDDLE_NAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity[:middle_name] rescue ""),
+        :MIDDLE_NAME => (entity[:middle_name] rescue ""),
         :LAST_NAME => entity[:last_name],
         :MARITIAL_STATUS => entity[:marital_status], #MARITAL_STATUS
-        #:'N_O_DEPENDENTS xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => entity[:number_of_dependents],
+        :N_O_DEPENDENTS=> entity[:number_of_dependents],
         :AUSTRALIAN_RESIDENT => entity[:australian_resident], #AUSTRALIAN_RESIDENT
         :LICENSE_NO => entity[:drivers_licence_no],
         :LICENSE_STATE => entity[:drivers_licence_state] , #STATE_CODES
         :MOBILE_NO => (entity[:mobile_number] rescue ""),
         :EMAIL_ID => (entity[:email] rescue ""),
-        :CURR_ADD_ADDRESS => entity[:street_address], #unformatted street address
-        :CURR_ADD_SUBURB => entity[:suburb],
-        :CURR_ADD_STATE => entity[:state], #STATE_CODES
-        :CURR_ADD_POSTAL_CODE => entity[:post_code],
-        :CURR_ADD_DURATION_YRS => entity[:address_duration_years], #in years
-        :CURR_ADD_DURATION_MNTH => entity[:address_duration_months], #in months
-        :PRESENT_EMPLOYER => (entity[:employers_name] rescue ""),
-        #:'PRESENT_EMP_CONT_PERSON xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity[:employer_contact] rescue ""),
-        :PRESENT_EMP_DURATION_YRS => (entity[:employment_duration_years] rescue ""),
-        :PRESENT_EMP_DURATION_MNTH => (entity[:employment_duration_months] rescue "" ),
+        :CURR_ADD_ADDRESS => entity[:current_address][:street], #unformatted street address
+        :CURR_ADD_SUBURB => entity[:current_address][:suburb],
+        :CURR_ADD_STATE => entity[:current_address][:state], #STATE_CODES
+        :CURR_ADD_POSTAL_CODE => entity[:current_address][:post_code],
+        :CURR_ADD_DURATION_YRS => entity[:current_address][:duration_years], #in years
+        :CURR_ADD_DURATION_MNTH => entity[:current_address][:duration_months], #in months
+        :PRESENT_EMPLOYER => (entity[:current_employer][:name] rescue ""),
+        :PRESENT_EMP_CONT_PERSON => (entity[:current_employer][:contact] rescue ""),
+        :PRESENT_EMP_DURATION_YRS => (entity[:current_employer][:duration_years] rescue ""),
+        :PRESENT_EMP_DURATION_MNTH => (entity[:current_employer][:duration_months] rescue "" ),
         :TOTAL_MONTHLY_INCOME => (entity[:net_income]rescue ""),
         :TOTAL_INCOME => (entity[:net_income] rescue ""),
-        #:'LANDLORD xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity_hash[:landlord] rescue ""),
-        #:'PROPERTY_CONT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity_hash[:landlord_phone] rescue ""),
+        :LANDLORD => (entity[:landlord] rescue ""),
+        :PROPERTY_CONT_NO => (entity[:landlord_phone] rescue ""),
       }
 
-      # if entity.entity_addresses.count > 1
-      #   eaf2 = entity.entity_addresses[1]
-      #   customer_details = customer_details.merge( :PREV_ADD_ADDRESS => [eaf2.address_street_number, eaf2.address_street_name, eaf2.street_type.abbreviation].join(" ") )
-      #   customer_details = customer_details.merge( :PREV_ADD_SUBURB => eaf2.address_suburb )
-      #   customer_details = customer_details.merge( :PREV_ADD_STATE => Constants::STATE_CODES.select{|z| z[:title] == eaf2.address_state.to_s}.first[:code] )
-      #   customer_details = customer_details.merge( :PREV_ADD_POSTAL_CODE => eaf2.address_post_code )
-      #   customer_details = customer_details.merge( :PREV_ADD_DURATION_YRS =>  eaf2.moved_into_address_at.year - eaf2.moved_into_address_at.year )
-      #   customer_details = customer_details.merge( :PREV_ADD_DURATION_MNTH => (eaf.moved_into_address_at.year * 12 + eaf.moved_into_address_at.month) - (eaf2.moved_into_address_at.year * 12 + eaf2.moved_into_address_at.month) )
-      # end
+      if entity[:previous_address]
+        p_a = entity[:previous_address]
+        customer_details = customer_details.merge( :PREV_ADD_ADDRESS => p_a[:street])
+        customer_details = customer_details.merge( :PREV_ADD_SUBURB => p_a[:suburb] )
+        customer_details = customer_details.merge( :PREV_ADD_STATE => p_a[:state] )
+        customer_details = customer_details.merge( :PREV_ADD_POSTAL_CODE => p_a[:post_code] )
+        customer_details = customer_details.merge( :PREV_ADD_DURATION_YRS => p_a[:duration_years] )
+        customer_details = customer_details.merge( :PREV_ADD_DURATION_MNTH => p_a[:duration_months] )
+      end
 
-      # if entity.personal_employments.count > 1
-      #  epe2 =  entity.personal_employments[1]
-      #   customer_details = customer_details.merge( :'PREV_EMPLOYER xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => epe2.employers_name )
-      #   customer_details = customer_details.merge( :'PREV_EMP_DURATION_YRS xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => (entity.personal_employments.first.began_employment_at.year - epe2.began_employment_at.year))
-      #   customer_details = customer_details.merge( :'PREV_EMP_DURATION_MNTH xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => ((entity.personal_employments.first.began_employment_at.year * 12 + entity.personal_employments.first.began_employment_at.month) - (epe2.began_employment_at.year * 12 + epe2.began_employment_at.month)) )
-      #   customer_details = customer_details.merge( :'PREV_EMP_CONT_NO xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'=> ( epe2.payroll_contact_phone_number rescue "" ) )
-      # end
+      if entity[:previous_employer]
+       p_e =  entity[:previous_employer]
+        customer_details = customer_details.merge( :PREV_EMPLOYER => p_e[:name] )
+        customer_details = customer_details.merge( :PREV_EMP_DURATION_YRS => p_e[:duration_years])
+        customer_details = customer_details.merge( :PREV_EMP_DURATION_MNTH => p_e[:duration_months] )
+        customer_details = customer_details.merge( :PREV_EMP_CONT_NO => p_e[:contact] )
+      end
     end
 
     customerdetails = {
@@ -239,32 +215,6 @@ class BmwAlphera::Request < ActiveRecord::Base
     begin_envelope + data + end_envelope
   end
   
-
-
-  def bmw_alphera_errors
-    error_array = []
-
-    unless self.application_motor_vehicle.present?
-      error_array << 'Only motor vehicle applications are supported.'
-    end
-
-    platform = self.user.try(:company).try(:aggregator).try(:platform)
-    unless platform.mfl?
-      error_array << "The application's user platform does not support BMW/Alphera."
-    end
-
-    # unless current_user.bmw_alphera_enabled == true
-    #   error_array << "The application's user does not support Bmw/Alphera."
-    # end
-
-    error_array
-  end
-
-  def bmw_alphera_supported?
-    bmw_alphera_errors.blank?
-  end
-
-
   def to_soap
     if self.access
       body = {
