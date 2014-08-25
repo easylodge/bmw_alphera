@@ -116,11 +116,11 @@ Then run migrations:
 
     commercial_entity_hash = {
       :customer_type => "TCCOR", #CUSTOMER_TYPES
-      :relation => "RTGA1", #PROSPECT_RELATIONS
+      :relation => "RTCST", #PROSPECT_RELATIONS
       :company_name => "Urban Vertical Pty Ltd",
       :year_est => 1999,
       :ref_contact_number => '0215553300',
-      :abn => '71 163 072 508',
+      :abn => '71163072508',
       :net_income => 6000
     } 
 
@@ -155,29 +155,6 @@ Then run migrations:
 
 
 Codes for quotes and entity hashes:
-
-    APPLICATION_STATUS = [
-      { :value => "APADG", :description => "Awaiting Director/GM Approval" },
-      { :value => "APAPD", :description => "Approved" },
-      { :value => "APAPR", :description => "Acceptance Processing" },
-      { :value => "APARF", :description => "Awaiting Reference" },
-      { :value => "APAWD", :description => "Awaiting Dealer Action" },
-      { :value => "APCLD", :description => "Application Cancelled" },
-      { :value => "APCND", :description => "Conditionally approved" },
-      { :value => "APFIN", :description => "Financed" },
-      { :value => "APFSL", :description => "Final Settlement" },
-      { :value => "APHLD", :description => "Held Offer" },
-      { :value => "APNPW", :description => "Not Proceeded With" },
-      { :value => "APPPA", :description => "Pending Payment Approval" },
-      { :value => "APRCL", :description => "Recalled" },
-      { :value => "APREJ", :description => "Rejected" },
-      { :value => "APSAV", :description => "Saved" },
-      { :value => "APSBT", :description => "Submitted" },
-      { :value => "APSES", :description => "Saved with Customer Mail Sent" },
-      { :value => "APSLD", :description => "Settlements Loading" },
-      { :value => "APSRR", :description => "Saved with Customer Response Received" },
-      { :value => "APSTP", :description => "Settlement Processing"}
-    ]
 
     BRAND_CODES = [
       { :code => "PBBMW", :description => "BMW" },

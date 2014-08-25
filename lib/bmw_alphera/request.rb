@@ -63,9 +63,9 @@ class BmwAlphera::Request < ActiveRecord::Base
         :PAYMENTSTRUCTURETYPE => quote[:payment_structure], #PAYMENT_STRUCTURE
         :OTHERASSETFLAG => 1,
         :TOTALDEPOSIT => (quote[:total_deposit] rescue 0.0),
-        :'MAKENAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:make],
-        :'SERIESNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:series],
-        :'MODELNAME xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' => quote[:variant],
+        :MAKENAME => quote[:make],
+        :SERIESNAME => quote[:series],
+        :MODELNAME => quote[:model],
         :CUSTOMERNAME => quote[:customer_name],
         :MOBILENUMBER => (quote[:mobile_number] rescue ""),
         :APPLICATIONTYPE => quote[:application_type], #APPLICATION_TYPES
@@ -140,12 +140,12 @@ class BmwAlphera::Request < ActiveRecord::Base
         :LICENSE_STATE => entity[:drivers_licence_state] , #STATE_CODES
         :MOBILE_NO => (entity[:mobile_number] rescue ""),
         :EMAIL_ID => (entity[:email] rescue ""),
-        :CURR_ADD_ADDRESS => entity[:current_address][:street], #unformatted street address
-        :CURR_ADD_SUBURB => entity[:current_address][:suburb],
-        :CURR_ADD_STATE => entity[:current_address][:state], #STATE_CODES
-        :CURR_ADD_POSTAL_CODE => entity[:current_address][:post_code],
-        :CURR_ADD_DURATION_YRS => entity[:current_address][:duration_years], #in years
-        :CURR_ADD_DURATION_MNTH => entity[:current_address][:duration_months], #in months
+        :CURR_ADD_ADDRESS => (entity[:current_address][:street] rescue ""), #unformatted street address
+        :CURR_ADD_SUBURB => (entity[:current_address][:suburb] rescue ""),
+        :CURR_ADD_STATE => (entity[:current_address][:state] rescue ""), #STATE_CODES
+        :CURR_ADD_POSTAL_CODE => (entity[:current_address][:post_code] rescue ""),
+        :CURR_ADD_DURATION_YRS => (entity[:current_address][:duration_years] rescue ""), #in years
+        :CURR_ADD_DURATION_MNTH => (entity[:current_address][:duration_months] rescue ""), #in months
         :PRESENT_EMPLOYER => (entity[:current_employer][:name] rescue ""),
         :PRESENT_EMP_CONT_PERSON => (entity[:current_employer][:contact] rescue ""),
         :PRESENT_EMP_DURATION_YRS => (entity[:current_employer][:duration_years] rescue ""),

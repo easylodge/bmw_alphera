@@ -58,20 +58,26 @@ describe BmwAlphera::Request do
         :middle_name => "",
         :last_name => "Long",
         :marital_status => "MSMAR", #MARITAL_STATUS
-        :no_of_dependents => 5,
+        :number_of_dependents => 5,
         :australian_resident => "OPTYS", #AUSTRALIAN_RESIDENT
         :drivers_licence_no => "8521452145",
         :drivers_licence_state => "DSVIC" , #STATE_CODES
         :mobile_number => "0393677752",
         :email => "peter.long@bmwfinance.com.au",
-        :street_address => "783 Springvale Rd", #unformatted street address
-        :suburb => "MULGRAVE",
-        :state => "DSVIC", #STATE_CODES
-        :post_code => "3170",
-        :address_duration_years => 6, #in years
-        :address_duration_months => 2, #in months
-        :employment_duration_years => 6, #in years
-        :employment_duration_months => 2, #in months
+        :current_address => {
+            :street => "783 Springvale Rd", #unformatted street address
+            :suburb => "MULGRAVE",
+            :state => "DSVIC", #STATE_CODES
+            :post_code => "3170",
+            :duration_years => 6, #in years
+            :duration_months => 2, #in months
+        },
+        :current_employer => {
+            :name => "MickySoft inc",
+            :contact => "James Small",
+            :duration_years => 6,
+            :duration_months => 2,
+        },
         :net_income => 6000,
       }  
     @request = BmwAlphera::Request.new(access: @access_hash, quote: @quote_hash, entity: @entity_hash)

@@ -24,7 +24,7 @@ require_relative 'spec/schema'
   }
 @consumer_quote_hash = 
   {
-    :application_id => 321458,
+    :application_id => 321666,
     :brand => 'PBALP',
     :status => "ASUSE",
     :vehicle_source=> "VSEXT", #VEHICLE_SOURCE 
@@ -60,7 +60,7 @@ require_relative 'spec/schema'
 
 @commercial_quote_hash = 
   {
-    :application_id => 321458,
+    :application_id => 321999,
     :brand => 'PBALP',
     :status => "ASUSE",
     :vehicle_source=> "VSEXT", #VEHICLE_SOURCE 
@@ -147,11 +147,11 @@ require_relative 'spec/schema'
 
   @commercial_entity_hash = {
     :customer_type => "TCCOR", #CUSTOMER_TYPES
-    :relation => "RTGA1", #PROSPECT_RELATIONS
+    :relation => "RTCST", #PROSPECT_RELATIONS
     :company_name => "Urban Vertical Pty Ltd",
     :year_est => 1999,
     :ref_contact_number => '0215553300',
-    :abn => '71 163 072 508',
+    :abn => '71163072508',
     :net_income => 6000
   }  
 
