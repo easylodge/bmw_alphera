@@ -2,9 +2,10 @@ ActiveRecord::Schema.define do
 self.verbose = false
 
   create_table :bmw_alphera_requests do |t|
+    t.integer :application_id
     t.text :xml
     t.text :soap
-    t.text :access
+    t.string :access
     t.text :entity
     t.text :quote
     t.timestamps
@@ -14,7 +15,6 @@ self.verbose = false
     t.text :headers
     t.integer :code
     t.text :xml
-    t.text :as_hash
     t.boolean :success
     t.integer :request_id
     t.timestamps

@@ -80,7 +80,7 @@ describe BmwAlphera::Request do
         },
         :net_income => 6000,
       }  
-    @request = BmwAlphera::Request.new(access: @access_hash, quote: @quote_hash, entity: @entity_hash)
+    @request = BmwAlphera::Request.new(application_id: 1, access: @access_hash, quote: @quote_hash, entity: @entity_hash)
   end
 
   it { should have_one(:response).dependent(:destroy) }

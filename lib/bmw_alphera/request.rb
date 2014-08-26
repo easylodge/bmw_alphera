@@ -1,9 +1,16 @@
 class BmwAlphera::Request < ActiveRecord::Base
   self.table_name = "bmw_alphera_requests"
   has_one :response, dependent: :destroy, inverse_of: :request
+  validates :application_id, presence: true
   validates :access, presence: true
   validates :quote, presence: true
   validates :entity, presence: true
+
+  serialize :xml
+  serialize :soap
+  serialize :access
+  serialize :entity
+  serialize :quote
 
   after_initialize :to_soap
 
@@ -26,7 +33,7 @@ class BmwAlphera::Request < ActiveRecord::Base
 
   def build_application_summary
     application_summary = { 
-      :PROVIDER_APPLICATION_ID => quote[:application_id] ,
+      :PROVIDER_APPLICATION_ID => self.application_id ,
       :DEALER_ID => access[:dealer_id],
       :DEALER_PASSWORD => access[:dealer_password],
       :ACTION => "SAVE",
@@ -71,8 +78,8 @@ class BmwAlphera::Request < ActiveRecord::Base
         :APPLICATIONTYPE => quote[:application_type], #APPLICATION_TYPES
         :EMAILADDRESS => (quote[:email] rescue ""),
         :CUSTOMERTYPE => quote[:customer_type], #CUSTOMER_TYPES
-        :TAXAPPLYDATE => DateTime.now,
-        :RVEFFECTIVEDATE => DateTime.now,
+        :TAXAPPLYDATE => DateTime.now.xmlschema,
+        :RVEFFECTIVEDATE => DateTime.now.xmlschema,
         :SUBPRODUCTID => quote[:sub_product_id], #PRODUCT_SUBPRODUCT_MAPPING[1]
         :PRODUCTID => quote[:product_id] #PRODUCT_SUBPRODUCT_MAPPING[1]
       }

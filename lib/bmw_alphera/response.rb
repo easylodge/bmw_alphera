@@ -8,11 +8,14 @@ class BmwAlphera::Response < ActiveRecord::Base
   validates :code, presence: true
   validates :success, presence: true
 
+  serialize :headers
+  serialize :xml 
+
   after_initialize :to_hash
 
   def to_hash
     if self.xml
-      self.as_hash = Hash.from_xml(self.xml)
+      Hash.from_xml(self.xml)
     else
       "No hash was created because there was no xml"
     end

@@ -24,7 +24,6 @@ require_relative 'spec/schema'
   }
 @consumer_quote_hash = 
   {
-    :application_id => 321666,
     :brand => 'PBALP',
     :status => "ASUSE",
     :vehicle_source=> "VSEXT", #VEHICLE_SOURCE 
@@ -60,7 +59,6 @@ require_relative 'spec/schema'
 
 @commercial_quote_hash = 
   {
-    :application_id => 321999,
     :brand => 'PBALP',
     :status => "ASUSE",
     :vehicle_source=> "VSEXT", #VEHICLE_SOURCE 
@@ -155,8 +153,8 @@ require_relative 'spec/schema'
     :net_income => 6000
   }  
 
-@con_req = BmwAlphera::Request.new(access: @access_hash, quote: @consumer_quote_hash, entity: @consumer_entity_hash)
-@com_req = BmwAlphera::Request.new(access: @access_hash, quote: @commercial_quote_hash, entity: @commercial_entity_hash)
+@con_req = BmwAlphera::Request.new(application_id: 1, access: @access_hash, quote: @consumer_quote_hash, entity: @consumer_entity_hash)
+@com_req = BmwAlphera::Request.new(application_id: 2, access: @access_hash, quote: @commercial_quote_hash, entity: @commercial_entity_hash)
 
 # @con_post = @con_req.post
 # @com_post = @com_req.post

@@ -73,7 +73,7 @@ describe BmwAlphera::Response do
         :address_duration_months => 2, #in months
         :net_income => 6000,
       }  
-    @request = BmwAlphera::Request.new(access: @access_hash, quote: @quote_hash, entity: @entity_hash)
+    @request = BmwAlphera::Request.new(application_id: 1, access: @access_hash, quote: @quote_hash, entity: @entity_hash)
     @post = @request.post
     @response = BmwAlphera::Response.create(xml: @post.body, headers: @post.headers, code: @post.code, success: @post.success?, request_id: @request.id)    
   end
@@ -99,7 +99,7 @@ describe BmwAlphera::Response do
 
   describe ".to_hash" do
     it "returns hash" do
-      expect(@response.as_hash.class).to eq(Hash)
+      expect(@response.to_hash.class).to eq(Hash)
     end
   end
 
