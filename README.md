@@ -1,3 +1,8 @@
+## *NOTE: The BMW Alphera integration was removed from EasyLodge on 6 October 2020. #8681*
+
+---
+
+
 # BmwAlphera
 
 Submit finance applications to BMW Alphera.
